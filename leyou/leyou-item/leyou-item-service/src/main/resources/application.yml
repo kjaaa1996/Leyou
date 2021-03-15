@@ -1,0 +1,37 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: item-service
+  datasource:
+    url: jdbc:mysql:///study?serverTimezone=GMT%2B8&characterEncoding=utf-8
+    username: root
+    password: root
+    #开发其他功能时暂时关闭，避免过多错误消息
+#  rabbitmq:               #配置rabbitmq
+#    host: 192.168.1.150   #配置IP地址
+#    port: 5672            #配置端口号默认为5672
+#    virtual-host: /leyou  #配置虚拟机名称
+#    username: leyou       #用户名
+#    password: leyou       #密码
+#    template:
+#      exchange: LEYOU.ITEM.EXCHANGE   #配置交换机名称
+#      retry:
+#        enabled: true     #开启失败重试
+#        multiplier: 2     #下次重试间隔的倍数，此处为2即下次重试的间隔是上次的2倍
+#        initial-interval: 1000ms  #第一次重试的时间间隔
+#        max-interval: 10000ms     #最长的重试时间间隔，超过这个时间不再进行重试
+#    publisher-returns: true       #生产者确认机制，确保消息会正确发送，如果发送失败会有错误回执，从而触发重试
+#mybatis
+mybatis:
+  type-aliases-package: com.leyou.item.pojo
+  #mapper-locations: mapper/*Mapper.xml
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10086/eureka
+  instance:
+    lease-expiration-duration-in-seconds: 15  #过期时间（开发时用于服务端）
+    lease-renewal-interval-in-seconds: 5  #心跳时间（开发时用于服务端）
+swagger:
+  base-package: com.leyou.item.controller

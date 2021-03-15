@@ -1,0 +1,25 @@
+server:
+  port: 8087
+spring:
+  application:
+    name: auth-service
+  thymeleaf:
+    servlet:
+      produce-partial-output-while-processing:
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 10
+  instance:
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+#配置授权中心的私钥和公钥
+leyou:
+  jwt:
+    secret: leyou@Login(Auth}*^31)&heiMa%     #登录校验的密钥
+    pubKeyPath: E:\\test\\rsa\\rsa.pub        #公钥地址
+    priKeyPath: E:\\test\\rsa\\rsa.pri        #私钥地址
+    expire: 30                                #过期时间，分钟
+    cookieName: LY_TOKEN                      #cookie名称
+    cookieMaxAge: 30                          #cookie#过期时间，秒

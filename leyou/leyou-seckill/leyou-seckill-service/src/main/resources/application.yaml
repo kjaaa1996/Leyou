@@ -1,0 +1,81 @@
+server:
+  port: 8090
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: seckill-service
+  datasource:
+    url: jdbc:mysql:///study?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#  rabbitmq:
+#    publisher-confirm-type: correlated
+#    virtual-host: /leyou
+#    username: leyou
+#    password: leyou
+#    host: 192.168.1.150
+#    port: 5672
+#    template:
+#      exchange: LEYOU.ORDER.EXCHANGE   #配置交换机名称
+#      retry:
+#        enabled: true     #开启失败重试
+#        multiplier: 2     #下次重试间隔的倍数，此处为2即下次重试的间隔是上次的2倍
+#        initial-interval: 1000ms  #第一次重试的时间间隔
+#        max-interval: 10000ms     #最长的重试时间间隔，超过这个时间不再进行重试
+#    publisher-returns: true       #生产者确认机制，确保消息会正确发送，如果发送失败会有错误回执，从而触发重试
+  jackson:
+    default-property-inclusion: non_null  #json处理时忽略空值
+  resources:
+    add-mappings: true
+    chain:
+      enabled: true
+      compressed: true
+      html-application-cache: true
+    cache:
+      period: 3600m
+  elasticsearch:
+    rest:
+      uris: 192.168.1.150:9200
+      username: elasticsearch
+  redis:
+    host: 192.168.1.150
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10086/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true #当获取host时，返回的不是主机名而是ip地址
+    ip-address: 127.0.0.1
+    lease-expiration-duration-in-seconds: 10  #超过10秒不发送就过期
+    lease-renewal-interval-in-seconds: 5  #每隔5秒发送一次心跳
+mybatis:
+  type-aliases-package: com.leyou.seckill.pojo
+leyou:
+  worker:
+    workerId: 1
+    datacenterId: 1
+  jwt:
+    pubKeyPath: E:\\test\\rsa\\rsa.pub # 公钥地址
+    cookieName: LY_TOKEN # cookie的名称
+swagger:
+  base-package: com.leyou.seckill.controller
+  authorization:
+    key-name: LY_TOKEN
+ribbon:
+  ConnectTimeout: 400 # 连接超时时间(ms)
+  ReadTimeout: 2000 # 通信超时时间(ms)
+  OkToRetryOnAllOperations: true # 是否对所有操作重试
+  MaxAutoRetriesNextServer: 1 # 同一服务不同实例的重试次数
+  MaxAutoRetries: 1 # 同一实例的重试次数
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 10000 # 熔断超时时长：10000ms
+
