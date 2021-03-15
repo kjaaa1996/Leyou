@@ -12,7 +12,7 @@ spring:
 
 leyou:
   sms:
-    accessKeyId: LTAI4GCDi6EcvuNitYsEiHjb
-    accessKeySecret: a48I0yz0Xc5tEQPbGE0vCzHCikNyBF
+    accessKeyId: 
+    accessKeySecret: 
     signName: 乐优商城
-    verifyCodeTemplate: SMS_192300241
+    verifyCodeTemplate: 
